@@ -1,5 +1,5 @@
 name: Copy Docker Image
-run-name: Copy ${{ inputs.source_repo }} to ${{ inputs.destination_repo }}
+run-name: Copy ${{ inputs.source_repo }} to ${{ inputs.destination }}
 on: 
   workflow_dispatch:
     inputs:
@@ -10,13 +10,9 @@ on:
       destination:
         description: '目标源 (Registry)'
         required: true
-        default: 'registry.cn-qingdao.aliyuncs.com'
+        default: 'http://clouddream.top:5000'
       source_repo:
         description: '仓库及标签 (格式 repo:tag)'
-        required: true
-        default: ''
-      destination_repo:
-        description: '目标仓库及标签 (格式 repo:tag)'
         required: true
         default: ''
 
@@ -28,7 +24,5 @@ jobs:
       uses: ikrong/docker-sync-action@main
       with:
         source: ${{ github.event.inputs.source }}
-        source-credential: ${{ secrets.SOURCE_CREDENTIAL }}
         destination: ${{ github.event.inputs.destination }}
-        destination-credential: ${{ secrets.DESTINATION_CREDENTIAL }}
-        copy: "${{ github.event.inputs.source_repo }} ${{ github.event.inputs.destination_repo }}"
+        copy: "${{ github.event.inputs.source_repo }} ${{ github.event.inputs.source_repo }}"
